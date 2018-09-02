@@ -45,33 +45,30 @@ class Blog extends React.Component {
   }
 
   handleLikeClick = async (event) => {
-    console.log(this.props)
     this.props.like(
-      this.state.title, 
-      this.state.author, 
-      this.state.url, 
-      this.state.adder._id,
-      this.state.likes,
-      this.state.blogid)
+      {title:this.props.ownProps.blog.title, 
+      author: this.props.ownProps.blog.author, 
+      url: this.props.ownProps.blog.url, 
+      adderid: this.props.ownProps.blog.user,
+      likes:this.props.ownProps.blog.likes,
+      blogid: this.props.ownProps.blog.id})
+    //this.parentRender()  
 
-    const updated = await blogService.updateLikes(
-      this.state.title, 
-      this.state.author, 
-      this.state.url, 
-      this.state.adder._id,
-      this.state.likes,
-      this.state.blogid) 
-    console.log('paivitetty', updated)
-    console.log(this.state.blogid)
-    console.log(this.state.adder._id)
-    console.log("@handleLikeClick")
-    //console.log(updated.data)
-    this.setState({likes:updated.data.likes},this.parentRender)
-    const allblogs = await blogService.getAll()
-    console.log('allafterlikeclick',allblogs)
-    this.parentRender()
-
-    //console.log(this.parentRender())
+    // const updated = await blogService.updateLikes(
+    //   this.state.title, 
+    //   this.state.author, 
+    //   this.state.url, 
+    //   this.state.adder._id,
+    //   this.state.likes,
+    //   this.state.blogid) 
+    // console.log('paivitetty', updated)
+    // console.log(this.state.blogid)
+    // console.log(this.state.adder._id)
+    // console.log("@handleLikeClick")
+    // this.setState({likes:updated.data.likes},this.parentRender)
+    // const allblogs = await blogService.getAll()
+    // console.log('allafterlikeclick',allblogs)
+    // this.parentRender()
   }
 
   handleDeleteClick = async (event) => {
@@ -92,7 +89,7 @@ class Blog extends React.Component {
           <a href={this.state.url}>{this.state.url}</a>
         </div>
         <div>
-          {this.state.likes} likes
+          {this.props.ownProps.blog.likes} likes
           <button name='like' onClick={this.handleLikeClick}>like</button>
         </div>
         <div>
@@ -125,20 +122,14 @@ class Blog extends React.Component {
     {
       let loggeduser = window.localStorage.getItem('loggeUser')
       let blogadder = this.state.adder
-      //console.log('logged', loggeduser)
-      //console.log('blogsuser', blogadder)
       if (!blogadder) {
         showDelete = () =>{
           return <button name='delete' onClick={this.handleDeleteClick}>delete</button>
         }
       }
       else { 
-        //console.log("User is not in local storage:")
-        //console.log("logged user:", loggeduser)
         loggeduser = JSON.parse(loggeduser).username
         blogadder = blogadder.username
-        //console.log('logged', loggeduser)
-        //console.log('blogsuser', blogadder)
         if (loggeduser === String(blogadder)) {
           showDelete = () =>{
             return <button name='delete' onClick={this.handleDeleteClick}>delete</button>
@@ -157,7 +148,6 @@ class Blog extends React.Component {
 }
 
 Blog.propTypes = {
-  store: PropTypes.object.isRequired,
   like: PropTypes.func.isRequired
 }
 

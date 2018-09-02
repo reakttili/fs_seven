@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { actionFor as notificationActionFor } from './reducers/notificationReducer'
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import PropTypes from 'prop-types'
+import { randomBytes } from 'crypto';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,11 +58,12 @@ class App extends React.Component {
   } 
 
   updateBlogs() {
-    blogService.getAll().then(blogs =>
-      {
-        this.setState({ blogs: this.sortBlogs(blogs) }, () => console.log('all at parent:', blogs) )
-      }
-    )
+    //this.render()
+    // blogService.getAll().then(blogs =>
+    //   {
+    //     this.setState({ blogs: this.sortBlogs(blogs) }, () => console.log('all at parent:', blogs) )
+    //   }
+    // )
   }
 
   handleLoginFormChange = (event) =>
@@ -203,8 +205,10 @@ class App extends React.Component {
     //<h2>blogs</h2>
     //{this.state.blogs.map(blog => 
     //  <Blog key={blog.id} blog={blog}  parentRender={this.updateBlogs} />
-    //)}
+    //)}'
 
+    console.log("here?")
+    console.log(this.props.blogs)
     return (
       <div>
         {this.state.updateToggle}
@@ -214,7 +218,7 @@ class App extends React.Component {
       
         <h2>blogs Redux</h2>
         {this.props.blogs.map(blog => 
-          <Blog store = {this.props.store} key={blog.id} blog={blog}  parentRender = {() => {}} />
+          <Blog key={blog.id+Math.random()} blog={blog}  parentRender = {() => {}} />
         )}  
 
         <Togglable buttonLabel="show create blog form">

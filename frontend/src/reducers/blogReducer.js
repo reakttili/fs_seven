@@ -3,6 +3,8 @@ import blogService from './../services/blogs'
 const reducer = (store = [], action) => {
   if (action.type==='LIKE') {
     const old = store.filter(a => a.id !==action.blog.id)
+    console.log("old", old)
+    console.log('the blog', action.blog)
     return [...old, action.blog ]
   }
   if (action.type === 'CREATE') {
@@ -27,36 +29,19 @@ const actionFor = {
   },
   liking(data) {
     return async (dispatch) => {
-        const updated = await blogService.updateLikes(
+        let updated = await blogService.updateLikes(
             data.title, 
             data.author, 
             data.url, 
             data.adderid,
             data.likes,
             data.blogid)
+        updated = updated.data
+        
         dispatch({
         type: 'LIKE',
         blog:updated }
       )}
-
-    // const updated = await blogService.updateLikes(
-    //     this.state.title, 
-    //     this.state.author, 
-    //     this.state.url, 
-    //     this.state.adder._id,
-    //     this.state.likes,
-    //     this.state.blogid) 
-    //   console.log('paivitetty', updated)
-    //   console.log(this.state.blogid)
-    //   console.log(this.state.adder._id)
-    //   console.log("@handleLikeClick")
-    //   //console.log(updated.data)
-    //   this.setState({likes:updated.data.likes},this.parentRender)
-    //   const allblogs = await blogService.getAll()
-    //   console.log('allafterlikeclick',allblogs)
-    //   this.parentRender()
-
-
   },
   initializeBlogs() {
     return async (dispatch) => {
