@@ -10,7 +10,6 @@ import { connect } from 'react-redux'
 import { actionFor as notificationActionFor } from './reducers/notificationReducer'
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import PropTypes from 'prop-types'
-import { randomBytes } from 'crypto';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,37 +35,28 @@ class App extends React.Component {
   componentDidMount() {
     console.log("@componentDidMount")
     this.props.initblogs()
-    // Try to login with local storage
-     const loggedUser = window.localStorage.getItem('loggeUser')
-     //console.log('LOGGED USER: ', loggedUser)
-     if (loggedUser) {
+    const loggedUser = window.localStorage.getItem('loggeUser')
+    if (loggedUser) {
       const user = JSON.parse(loggedUser)
       this.setState({
         user,
         name: user.name
         })
       blogService.setToken(user.token)
-     }
+    }
   } 
 
   handleLoginFormChange = (event) =>
   {
     event.preventDefault()
-    console.log("@handleUserNameChange")
-    console.log(event.target.value)
-    console.log(event.target.name)
     this.setState({[event.target.name]: event.target.value})
-    
   }
-
   handleSubmit = async (event) =>
   {
     console.log("@HandleSubmit")
     event.preventDefault()
     try {
       const user = await loginService.login(this.state.userName, this.state.password)
-
-
       this.setState({
         name:user.name,
         password:'',
@@ -77,9 +67,6 @@ class App extends React.Component {
       window.localStorage.setItem('loggeUser', JSON.stringify(user))
       console.log("@handle submit: all ok")
       this.props.notify('Login success', 3,0)
-  
-
-
     } catch (exception) {
       const notification = {msg:'hmm', className:'info'}
       this.setState({notification})
@@ -87,24 +74,6 @@ class App extends React.Component {
       console.log("@handle submit: username/password error")
     }
   }
-
-  notify = (msge) => {
-    const notification = {msg:msge, className:'info'}
-    this.setState({notification})
-    setTimeout(()=> {
-      this.setState({notification:null})
-    },5000)
-  }
-
-  notifyError = (msg) => {
-    const notification = {msg:msg, className:'error'}
-    this.setState({notification})
-    setTimeout(()=> {
-      this.setState({notification:null})
-    },5000)
-  }
-
-
   handleCreateNewBlog = async (event) =>
   {
     console.log("@handleCreateNewBlog")
@@ -132,8 +101,6 @@ class App extends React.Component {
     console.log(event.target.value)
     this.setState({[event.target.name]:event.target.value})
   }
-
-
   handleLogout = (event) =>
   {
     this.setState({
@@ -145,7 +112,6 @@ class App extends React.Component {
     window.localStorage.removeItem('loggeUser')
     
   }
-
   sortBlogs = (blogs) => {
     const cmp = (a,b) => {
       if (a.likes > b.likes ) {
@@ -160,15 +126,6 @@ class App extends React.Component {
   }
 
   render() {
-    
-    // let renderNotification = () => {return null }
-    // if (this.state.notification != null)
-    // {
-    //   renderNotification = () => {
-    //     return  <Notification />
-    //   }
-    // }
-
     if (this.state.user === null) {
       return (
         <div>
@@ -184,26 +141,16 @@ class App extends React.Component {
         </div>
       )
     }
-
-    //<h2>blogs</h2>
-    //{this.state.blogs.map(blog => 
-    //  <Blog key={blog.id} blog={blog}  parentRender={this.updateBlogs} />
-    //)}'
-
-    console.log("here?")
-    console.log(this.propsblogs)
     return (
       <div>
         {this.state.updateToggle}
         <Notification />
         kirjautuneena: {this.state.name} 
         <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
-      
         <h2>blogs Redux</h2>
         {this.props.blogs.map(blog => 
           <Blog key={blog.id+Math.random()} blog={blog}  parentRender = {() => {}} />
         )}  
-
         <Togglable buttonLabel="show create blog form">
           <CreateBlogForm 
             title={this.state.newTitle}
@@ -213,10 +160,7 @@ class App extends React.Component {
             submitHandler={this.handleCreateNewBlog}
           />        
         </Togglable>
-        
-
       </div>
-
     );
   }
 }
