@@ -27,13 +27,10 @@ class App extends React.Component {
       notification: {className:'',msg:''},
       updateToggle:false
     }
-
-    this.updateBlogs = this.updateBlogs.bind(this)
   }
 
   toggleRender() {
     this.setState({updateToggle: this.state.updateToggle})
-    console.log("togglerender!")
   }
   
   componentDidMount() {
@@ -51,15 +48,6 @@ class App extends React.Component {
       blogService.setToken(user.token)
      }
   } 
-
-  updateBlogs() {
-    //this.render()
-    // blogService.getAll().then(blogs =>
-    //   {
-    //     this.setState({ blogs: this.sortBlogs(blogs) }, () => console.log('all at parent:', blogs) )
-    //   }
-    // )
-  }
 
   handleLoginFormChange = (event) =>
   {
@@ -233,6 +221,20 @@ class App extends React.Component {
   }
 }
 
+const sortBlogs = (blogs) => {
+  const cmp = (a,b) => {
+    if (a.likes < b.likes ) {
+      return 1
+    }
+    if (a.likes > b.likes ) {
+      return -1
+    }
+    return 0
+  }
+  const s = blogs.sort(cmp)
+  return s
+}
+
 App.propTypes = {
   store: PropTypes.object.isRequired,
   notify: PropTypes.func.isRequired
@@ -246,10 +248,9 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) => {
   return {
     notificationData: state.notification,
-    blogs: state.blogs
+    blogs: sortBlogs(state.blogs)
   }
 }
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)
 
