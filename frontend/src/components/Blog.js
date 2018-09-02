@@ -17,18 +17,8 @@ class Blog extends React.Component {
   constructor(props) {
     super(props)
 
-    //console.log("OWN PROPS:")
-    //console.log(this.props.ownProps)
-    //console.log(blogsActionFor.liking)
-
     this.state = {
       bShowAll: false,
-      title: props.ownProps.blog.title,
-      author: props.ownProps.blog.author,
-      url: props.ownProps.blog.url,
-      likes: props.ownProps.blog.likes,
-      adder: props.ownProps.blog.user,
-      blogid: props.ownProps.blog.id
     }
     this.parentRender = props.parentRender
     this.hideDelete = false
@@ -52,23 +42,6 @@ class Blog extends React.Component {
       adderid: this.props.ownProps.blog.user,
       likes:this.props.ownProps.blog.likes,
       blogid: this.props.ownProps.blog.id})
-    //this.parentRender()  
-
-    // const updated = await blogService.updateLikes(
-    //   this.state.title, 
-    //   this.state.author, 
-    //   this.state.url, 
-    //   this.state.adder._id,
-    //   this.state.likes,
-    //   this.state.blogid) 
-    // console.log('paivitetty', updated)
-    // console.log(this.state.blogid)
-    // console.log(this.state.adder._id)
-    // console.log("@handleLikeClick")
-    // this.setState({likes:updated.data.likes},this.parentRender)
-    // const allblogs = await blogService.getAll()
-    // console.log('allafterlikeclick',allblogs)
-    // this.parentRender()
   }
 
   handleDeleteClick = async (event) => {
@@ -79,14 +52,14 @@ class Blog extends React.Component {
   }
 
   showAll = () => {
-    const addedby = (this.state.adder) ? this.state.adder.name : '';
+    const addedby = (this.props.ownProps.blog.user) ? this.props.ownProps.blog.user.name : '';
     return(
       <div>
         <div className="namediv" onClick={() => this.setState({bShowAll:false})}>
-          {this.state.title} {this.state.author}
+          { this.props.ownProps.blog.title} {this.props.ownProps.blog.author}
         </div>
         <div>
-          <a href={this.state.url}>{this.state.url}</a>
+          <a href={this.props.ownProps.blog.url}>{this.props.ownProps.blog.url}</a>
         </div>
         <div>
           {this.props.ownProps.blog.likes} likes
@@ -104,7 +77,7 @@ class Blog extends React.Component {
   showLimited = () => {
     return(
       <div className="namediv" onClick={() => this.setState({bShowAll:true})}>
-        {this.state.title} {this.state.author} 
+        {this.props.ownProps.blog.title} {this.props.ownProps.blog.author} 
       </div>)
   }
 

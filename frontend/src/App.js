@@ -39,12 +39,7 @@ class App extends React.Component {
   componentDidMount() {
     console.log("@componentDidMount")
     this.props.initblogs()
-    
-    
-    blogService.getAll().then(blogs =>
-      {this.setState({ blogs:this.sortBlogs(blogs) })}
-    )
-     // Try to login with local storage
+    // Try to login with local storage
      const loggedUser = window.localStorage.getItem('loggeUser')
      //console.log('LOGGED USER: ', loggedUser)
      if (loggedUser) {
@@ -208,7 +203,7 @@ class App extends React.Component {
     //)}'
 
     console.log("here?")
-    console.log(this.props.blogs)
+    console.log(this.propsblogs)
     return (
       <div>
         {this.state.updateToggle}
