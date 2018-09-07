@@ -21,6 +21,7 @@ const actionFor = {
   blogCreation(title, author, url) {
     return async (dispatch) => {
       const newblog = await blogService.create(title, author, url)
+      console.log("here should be a blog:", newblog)
       return dispatch({
         type: 'CREATE',
         content:newblog

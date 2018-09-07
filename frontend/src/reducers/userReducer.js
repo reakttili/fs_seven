@@ -1,4 +1,4 @@
-import blogService from './../services/blogs'
+import userService from './../services/users'
 
 const reducer = (store = [], action) => {
   if (action.type==='LIKE') {
@@ -18,38 +18,38 @@ const reducer = (store = [], action) => {
 }
 
 const actionFor = {
-  blogCreation(title, author, url) {
-    return async (dispatch) => {
-      const newblog = await blogService.create(title, author, url)
-      return dispatch({
-        type: 'CREATE',
-        content:newblog
-      })
-    }
-  },
-  liking(data) {
-    return async (dispatch) => {
-        let updated = await blogService.updateLikes(
-            data.title, 
-            data.author, 
-            data.url, 
-            data.adderid,
-            data.likes,
-            data.blogid)
-        updated = updated.data
+//   creation(title, author, url) {
+//     return async (dispatch) => {
+//       const newblog = await blogService.create(title, author, url)
+//       return dispatch({
+//         type: 'CREATE',
+//         content:newblog
+//       })
+//     }
+//   },
+//   liking(data) {
+//     return async (dispatch) => {
+//         let updated = await blogService.updateLikes(
+//             data.title, 
+//             data.author, 
+//             data.url, 
+//             data.adderid,
+//             data.likes,
+//             data.blogid)
+//         updated = updated.data
         
-        dispatch({
-        type: 'LIKE',
-        blog:updated }
-      )}
-  },
-  initializeBlogs() {
+//         dispatch({
+//         type: 'LIKE',
+//         blog:updated }
+//       )}
+//   },
+  initializing() {
     return async (dispatch) => {
-      const blogs = await blogService.getAll()
-      console.log('blogs', blogs)
+      const users = await userService.getAll()
+      console.log("userRecucer init:", users)
       dispatch({
         type: 'INITIALIZE',
-        data: blogs
+        data: users
       })
     }
   }

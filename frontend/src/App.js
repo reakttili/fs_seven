@@ -9,6 +9,7 @@ import loginService from './services/login'
 import { connect } from 'react-redux'
 import { actionFor as notificationActionFor } from './reducers/notificationReducer'
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
+import { actionFor as usersActionFor } from './reducers/userReducer'
 import PropTypes from 'prop-types'
 import userService from './services/users'
 
@@ -36,6 +37,8 @@ class App extends React.Component {
   componentDidMount() {
     userService.getAll()
     .then(resp => console.log(resp))
+
+    this.props.initUsers()
     
     console.log("@componentDidMount")
     this.props.initblogs()
@@ -48,6 +51,8 @@ class App extends React.Component {
         })
       blogService.setToken(user.token)
     }
+
+    console.log("users from store:", this.props.users)
   } 
 
   handleLoginFormChange = (event) =>
@@ -83,11 +88,16 @@ class App extends React.Component {
     console.log("@handleCreateNewBlog")
     event.preventDefault()
     try {
-      await blogService.create(
-        this.state.newTitle, 
-        this.state.newAuhtor, 
-        this.state.newUrl)
-      this.updateBlogs()
+      this.props.createBlog(
+        this.state.newTitle,
+        this.state.newAuhtor,
+        this.state.newUrl
+      )
+      // await blogService.create(
+      //   this.state.newTitle, 
+      //   this.state.newAuhtor, 
+      //   this.state.newUrl)
+      //this.props.initblogs()
       
       this.props.notify('Blog created', 3,0)
       
@@ -145,6 +155,20 @@ class App extends React.Component {
         </div>
       )
     }
+
+    let renderBlogs = () =>
+    {
+      console.log(this.props.blogs)
+      return (
+        this.props.blogs.map(blog => 
+            <Blog key={blog.id+Math.random().toString()} blog={blog}  parentRender = {() => {}} />
+        )
+      )
+    }
+    if (!this.props.blogs)
+    {
+      //renderBlogs = () => {}
+    } 
     return (
       <div>
         {this.state.updateToggle}
@@ -152,9 +176,7 @@ class App extends React.Component {
         kirjautuneena: {this.state.name} 
         <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
         <h2>blogs Redux</h2>
-        {this.props.blogs.map(blog => 
-          <Blog key={blog.id+Math.random()} blog={blog}  parentRender = {() => {}} />
-        )}  
+        {renderBlogs()}
         <Togglable buttonLabel="show create blog form">
           <CreateBlogForm 
             title={this.state.newTitle}
@@ -190,13 +212,16 @@ App.propTypes = {
 
 const mapDispatchToProps = {
   notify: notificationActionFor.notify,
-  initblogs: blogsActionFor.initializeBlogs
+  initblogs: blogsActionFor.initializeBlogs,
+  initUsers: usersActionFor.initializing,
+  createBlog: blogsActionFor.blogCreation
 }
 
 const mapStateToProps = (state) => {
   return {
     notificationData: state.notification,
-    blogs: sortBlogs(state.blogs)
+    blogs: sortBlogs(state.blogs),
+    users: state.users
   }
 }
 

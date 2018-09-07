@@ -24,6 +24,7 @@ const create = async (title, author, url) => {
     url
   }
   const response = await axios.post(baseUrl, blog, config)
+  return response.data
   
 }
 
