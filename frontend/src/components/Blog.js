@@ -1,5 +1,5 @@
 import React from 'react'
-import blogService from './../services/blogs'
+//import blogService from './../services/blogs'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { actionFor as blogsActionFor } from './../reducers/blogReducer'
@@ -96,7 +96,7 @@ class Blog extends React.Component {
     {
       let loggeduser = window.localStorage.getItem('loggeUser')
       let blogadder = this.props.ownProps.blog.user
-      console.log('user', blogadder)
+      //console.log('user', blogadder)
       if (!blogadder) {
         showDelete = () =>{
           return <button name='delete' onClick={this.handleDeleteClick}>delete</button>

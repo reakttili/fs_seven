@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { actionFor as actionForNotification } from './../reducers/notificationReducer'
+//import { actionFor as actionForNotification } from './../reducers/notificationReducer'
 import { connect } from 'react-redux'
 
 class Notification extends React.Component {

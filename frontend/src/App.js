@@ -11,7 +11,7 @@ import { actionFor as notificationActionFor } from './reducers/notificationReduc
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import { actionFor as usersActionFor } from './reducers/userReducer'
 import PropTypes from 'prop-types'
-import userService from './services/users'
+//import userService from './services/users'
 
 class App extends React.Component {
   constructor(props) {
@@ -34,9 +34,9 @@ class App extends React.Component {
   }
   
   componentDidMount() {
-    userService.getAll()
-    .then(resp => console.log(resp))
-    console.log("@componentDidMount")
+    // userService.getAll()
+    // .then(resp => console.log(resp))
+    //console.log("@componentDidMount")
     this.props.initblogs()
     const loggedUser = window.localStorage.getItem('loggeUser')
     if (loggedUser) {
@@ -59,7 +59,7 @@ class App extends React.Component {
   }
   handleSubmit = async (event) =>
   {
-    console.log("@HandleSubmit")
+    //console.log("@HandleSubmit")
     event.preventDefault()
     try {
       const user = await loginService.login(this.state.userName, this.state.password)
@@ -69,20 +69,20 @@ class App extends React.Component {
         user
       })
       blogService.setToken(user.token)
-      console.log(user)
+      //console.log(user)
       window.localStorage.setItem('loggeUser', JSON.stringify(user))
-      console.log("@handle submit: all ok")
+      //console.log("@handle submit: all ok")
       this.props.notify('Login success', 3,0)
     } catch (exception) {
       const notification = {msg:'hmm', className:'info'}
       this.setState({notification})
       this.props.notify('Login error', 3,1)
-      console.log("@handle submit: username/password error")
+      //console.log("@handle submit: username/password error")
     }
   }
   handleCreateNewBlog = async (event) =>
   {
-    console.log("@handleCreateNewBlog")
+    //console.log("@handleCreateNewBlog")
     event.preventDefault()
     try {
       this.props.createBlog(
@@ -107,9 +107,9 @@ class App extends React.Component {
   handleCreateNewBlogFormChange = async (event) =>
   {
     event.preventDefault()
-    console.log("@handleCreateNewBlogFormChange")
-    console.log(event.target.name)
-    console.log(event.target.value)
+    //console.log("@handleCreateNewBlogFormChange")
+    //console.log(event.target.name)
+    //console.log(event.target.value)
     this.setState({[event.target.name]:event.target.value})
   }
   handleLogout = (event) =>
@@ -138,7 +138,7 @@ class App extends React.Component {
 
   render() {
 
-    console.log('blogs to render', this.props.blogs)
+    //console.log('blogs to render', this.props.blogs)
     console.log('users to render', this.props.users)
     if (this.state.user === null) {
       return (
@@ -165,11 +165,11 @@ class App extends React.Component {
         )
       )
     }
-    if (!this.props.blogs)
-    {
-      //return ({<div></div>})
-      renderBlogs = () => {<div>no blogs!</div>}
-    } 
+    // if (!this.props.blogs)
+    // {
+    //   //return ({<div></div>})
+    //   renderBlogs = () => {<div>no blogs!</div>}
+    // } 
     return (
       <div>
         {this.state.updateToggle}

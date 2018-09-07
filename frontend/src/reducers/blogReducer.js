@@ -1,26 +1,26 @@
 import blogService from './../services/blogs'
 
 const reducer = (store = [], action) => {
-  console.log('blogstore', store)
+  //console.log('blogstore', store)
   if (action.type==='LIKE_BLOG') {
     const old = store.filter(a => a.id !==action.blog.id)
-    console.log("old", old)
-    console.log('the blog', action.blog)
+    //console.log("old", old)
+    //console.log('the blog', action.blog)
     return [...old, action.blog ]
   }
   if (action.type === 'DELETE_BLOG') {
-    console.log(action.id)
+    //console.log(action.id)
     const rest = store.filter(a => a.id !==action.content)
-    console.log('at delete', rest)
+    //console.log('at delete', rest)
     return rest
   }
   if (action.type === 'CREATE_BLOG') {
-    console.log("new blog,", action.content)
+    //console.log("new blog,", action.content)
     return [...store, action.content]
   }
   if (action.type === 'INITIALIZE_BLOG') {
     store = action.data
-    console.log('INITIALIZE blogs', action.data)
+    //console.log('INITIALIZE blogs', action.data)
     return store
   }
   return store
@@ -30,7 +30,7 @@ const actionFor = {
   deletion(id) {
     return async (dispatch) => {
       // TODO: try-catch
-      const updated = await blogService.deleteBlog(id) 
+      await blogService.deleteBlog(id) 
       //const newblog = await blogService.create(title, author, url)
       return dispatch({
         type: 'DELETE_BLOG',
