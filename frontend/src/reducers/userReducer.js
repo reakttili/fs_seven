@@ -46,7 +46,7 @@ const actionFor = {
   initializing() {
     return async (dispatch) => {
       const users = await userService.getAll()
-      console.log("userRecucer init:", users)
+      //console.log("userRecucer init:", users)
       dispatch({
         type: 'INITIALIZE',
         data: users

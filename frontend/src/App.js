@@ -37,9 +37,6 @@ class App extends React.Component {
   componentDidMount() {
     userService.getAll()
     .then(resp => console.log(resp))
-
-    this.props.initUsers()
-    
     console.log("@componentDidMount")
     this.props.initblogs()
     const loggedUser = window.localStorage.getItem('loggeUser')
@@ -51,8 +48,9 @@ class App extends React.Component {
         })
       blogService.setToken(user.token)
     }
+    this.props.initUsers()
 
-    console.log("users from store:", this.props.users)
+    //console.log("users from store:", this.props.users)
   } 
 
   handleLoginFormChange = (event) =>
@@ -167,7 +165,8 @@ class App extends React.Component {
     }
     if (!this.props.blogs)
     {
-      //renderBlogs = () => {}
+      //return ({<div></div>})
+      renderBlogs = () => {<div>no blogs!</div>}
     } 
     return (
       <div>
