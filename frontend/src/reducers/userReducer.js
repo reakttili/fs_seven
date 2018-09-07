@@ -1,16 +1,17 @@
 import userService from './../services/users'
 
 const reducer = (store = [], action) => {
-  if (action.type==='LIKE') {
+  if (action.type==='LIKE_USER') {
     const old = store.filter(a => a.id !==action.blog.id)
     console.log("old", old)
     console.log('the blog', action.blog)
     return [...old, action.blog ]
   }
-  if (action.type === 'CREATE') {
+  if (action.type === 'CREATE_USER') {
     return [...store, action.content]
   }
-  if (action.type === 'INITIALIZE') {
+  if (action.type === 'INITIALIZE_USER') {
+    console.log('INITIALIZE users', action.data )
     store = action.data
     return store
   }
@@ -46,9 +47,9 @@ const actionFor = {
   initializing() {
     return async (dispatch) => {
       const users = await userService.getAll()
-      //console.log("userRecucer init:", users)
+      
       dispatch({
-        type: 'INITIALIZE',
+        type: 'INITIALIZE_USER',
         data: users
       })
     }

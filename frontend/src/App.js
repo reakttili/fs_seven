@@ -17,7 +17,6 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      blogs: [],
       name: '',
       userName: '',
       password: '',
@@ -138,6 +137,9 @@ class App extends React.Component {
   }
 
   render() {
+
+    console.log('blogs to render', this.props.blogs)
+    console.log('users to render', this.props.users)
     if (this.state.user === null) {
       return (
         <div>
@@ -156,7 +158,7 @@ class App extends React.Component {
 
     let renderBlogs = () =>
     {
-      console.log('blogs to render', this.props.blogs)
+      
       return (
         this.props.blogs.map(blog => 
             <Blog key={blog.id+Math.random().toString()} blog={blog}  parentRender = {() => {}} />
