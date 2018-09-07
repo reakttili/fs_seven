@@ -103,11 +103,17 @@ blogRouter.post('/', async (request, response) => {
     if (!blog.url || !blog.title) {
       return response.status(400).json({ error: 'content missing' })
     }
-    const saved = await blog.save()
+    let saved = await blog.save()
+    console.log('saved blog?2', saved)
     user.blogs = user.blogs.concat(saved._id)
     await user.save()
 
-    response.status(201).json(Blog.formatBlog(saved))
+    const b = await Blog
+      .findById(saved.id)
+      .populate('user', { name: 1, username: 1 })
+    console.log('saved blog?3',b)
+
+    return response.status(201).json(Blog.formatBlog(b))
   } catch (exception) {
     console.log(exception)
   }

@@ -158,7 +158,7 @@ class App extends React.Component {
 
     let renderBlogs = () =>
     {
-      console.log(this.props.blogs)
+      console.log('blogs to render', this.props.blogs)
       return (
         this.props.blogs.map(blog => 
             <Blog key={blog.id+Math.random().toString()} blog={blog}  parentRender = {() => {}} />

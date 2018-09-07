@@ -7,7 +7,14 @@ const reducer = (store = [], action) => {
     console.log('the blog', action.blog)
     return [...old, action.blog ]
   }
+  if (action.type === 'DELETE') {
+    console.log(action.id)
+    const rest = store.filter(a => a.id !==action.content)
+    console.log('at delete', rest)
+    return rest
+  }
   if (action.type === 'CREATE') {
+    console.log("new blog,", action.content)
     return [...store, action.content]
   }
   if (action.type === 'INITIALIZE') {
@@ -18,10 +25,20 @@ const reducer = (store = [], action) => {
 }
 
 const actionFor = {
+  deletion(id) {
+    return async (dispatch) => {
+      // TODO: try-catch
+      const updated = await blogService.deleteBlog(id) 
+      //const newblog = await blogService.create(title, author, url)
+      return dispatch({
+        type: 'DELETE',
+        content:id
+      })
+    }
+  },
   blogCreation(title, author, url) {
     return async (dispatch) => {
       const newblog = await blogService.create(title, author, url)
-      console.log("here should be a blog:", newblog)
       return dispatch({
         type: 'CREATE',
         content:newblog

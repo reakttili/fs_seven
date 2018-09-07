@@ -46,8 +46,9 @@ class Blog extends React.Component {
 
   handleDeleteClick = async (event) => {
     if (window.confirm("Delete blog?")) {
-      const updated = await blogService.deleteBlog(this.props.ownProps.blog.id) 
-      this.parentRender()
+      this.props.deleteBlog(this.props.ownProps.blog.id)
+      //const updated = await blogService.deleteBlog(this.props.ownProps.blog.id) 
+      //this.parentRender()
     }
   }
 
@@ -95,6 +96,7 @@ class Blog extends React.Component {
     {
       let loggeduser = window.localStorage.getItem('loggeUser')
       let blogadder = this.props.ownProps.blog.user
+      console.log('user', blogadder)
       if (!blogadder) {
         showDelete = () =>{
           return <button name='delete' onClick={this.handleDeleteClick}>delete</button>
@@ -125,7 +127,8 @@ Blog.propTypes = {
 }
 
 const mapDispatchToProps = {
-  like: blogsActionFor.liking
+  like: blogsActionFor.liking,
+  deleteBlog: blogsActionFor.deletion
 }
 
 const mapStateToProps = (state, ownProps) => {
