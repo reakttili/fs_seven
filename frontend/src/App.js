@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { actionFor as notificationActionFor } from './reducers/notificationReducer'
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import PropTypes from 'prop-types'
+import userService from './services/users'
 
 class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,9 @@ class App extends React.Component {
   }
   
   componentDidMount() {
+    userService.getAll()
+    .then(resp => console.log(resp))
+    
     console.log("@componentDidMount")
     this.props.initblogs()
     const loggedUser = window.localStorage.getItem('loggeUser')
