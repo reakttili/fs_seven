@@ -11,9 +11,11 @@ const reducer = (store = [], action) => {
     return [...store, action.content]
   }
   if (action.type === 'INITIALIZE_USER') {
-    //console.log('INITIALIZE users', action.data )
+    console.log('INITIALIZE users', action.data )
     //console.log("here are users to be set:", action.data)
-    store = action.data
+    store = [...action.data]
+    console.log(store)
+
     return store
   }
   return store

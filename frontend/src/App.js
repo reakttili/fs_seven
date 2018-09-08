@@ -25,7 +25,6 @@ class App extends React.Component {
       name: '',
       userName: '',
       password: '',
-      user: null,
       newTitle:'',
       newAuhtor:'',
       newUrl:'',
@@ -46,18 +45,19 @@ class App extends React.Component {
     //console.log("@componentDidMount")
     
     this.props.initblogs()
-    const loggedUser = window.localStorage.getItem('loggeUser')
-    if (loggedUser) {
-      const user = JSON.parse(loggedUser)
-      //console.log('user for setter:', user)
+    const temp = window.localStorage.getItem('loggeUser')
+    if (temp) {
+      const user = JSON.parse(temp)
+      console.log('user for setter:', user)
       this.props.setLoggedUser(user)
       this.setState({
         name: user.name
         })
       blogService.setToken(user.token)
+    } else{
+      console.log('No logged user')
     }
     
-
     this.props.initUsers()
 
     //console.log("users from store:", this.props.users)
@@ -151,8 +151,8 @@ class App extends React.Component {
 
     //console.log('blogs to render', this.props.blogs)
     //console.log('users to render', this.props.users)
-    //console.log('render user', this.props.loggedUser)
-    if (this.props.loggedUser === null) {
+    console.log('render user', this.props.loggedUserR)
+    if (this.props.loggedUserR === null) {
       return (
         <div>
         
@@ -210,7 +210,7 @@ class App extends React.Component {
       <div>
         {this.state.updateToggle}
         <Notification />
-        kirjautuneenaa: {this.props.loggedUser.name} 
+        kirjautuneenaa: {this.props.loggedUserR.name} 
         <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
         <Togglable buttonLabel="show create blog form">
           <CreateBlogForm 
@@ -275,7 +275,7 @@ const mapStateToProps = (state) => {
     notificationData: state.notification,
     blogs: sortBlogs(state.blogs),
     users: state.users,
-    loggedUser: state.loggedUser
+    loggedUserR: state.loggedUser
   }
 }
 
