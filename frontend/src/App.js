@@ -183,6 +183,14 @@ class App extends React.Component {
     //   //return ({<div></div>})
     //   renderBlogs = () => {<div>no blogs!</div>}
     // } 
+    // <Route exact path="/notes/:id" render={({match}) =>
+    //         <Note note={noteById(match.params.id)} />}
+    //           />
+    
+    const userById = (id) => {
+      this.props.users.find(user => user.id === Number(id))
+    }
+    
     return (
       
       <div>
@@ -207,8 +215,10 @@ class App extends React.Component {
                 {renderBlogs()}
               </div>
             }/>
-            <Route exact path="/users" render={() => <Users />} />
-            <Route exact path="/user" render={() => <User />} />
+            <Route exact path="/users" render={({history}) => <Users history={history} />} />
+            <Route exact path="/user/:id" render={({match}) => 
+              <User user={userById(match.params.id)}/>} />
+            
             
           </div>
         </Router>

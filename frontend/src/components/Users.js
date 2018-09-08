@@ -10,19 +10,24 @@ class Users extends React.Component {
   // constructor(props) {
   //   super(props)
   // }
+  handleOnClick = (id) =>
+  {
+    this.props.history.push(`/user/${id}`)
+  }
   render() {
     return (
       // TODO: make a table!
       //<Redirect to="/user" />
       //<Route exact path="/notes/:id" render={({match}) =>
       //<Note note={noteById(match.params.id)} />}
+      //<a href='aa' onClick={()=>this.handleOnClick(user.id)}>{user.name}</a>
       ///>
 
       <div>
         <h1>Users</h1>
         {this.props.userinfos.map(user => 
           <div key={uuidv1()}>
-            <a href={user.id}>{user.name}</a>
+            <div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div>
             {user.blogno}
             {user.id}
           </div>

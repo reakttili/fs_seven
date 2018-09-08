@@ -3,7 +3,7 @@ const initialNotification = ''
 const reducer = (store = { notification: initialNotification, bShow: false, type: 0 }, action) => {
   switch (action.type) {
   case 'SET':
-    console.log("Set new notification:", action.notification)
+    //console.log("Set new notification:", action.notification)
     store = action.notification
     return store
   default:
