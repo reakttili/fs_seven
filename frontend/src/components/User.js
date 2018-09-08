@@ -10,6 +10,7 @@ class User extends React.Component {
   //   super(props)
   // }
   render() {
+    //console.log(this.props.ownProps)
     return (
       // TODO: make a table!
     //   //<h1>User</h1>
@@ -17,7 +18,11 @@ class User extends React.Component {
     //       <div key={uuidv1()}>{user.name} {user.blogno}</div>
     //     )}    
       <div>
-        show user info here!
+        <h1>{this.props.ownProps.user.name}</h1>
+        <h2>Added blogs</h2>
+        {this.props.ownProps.user.blogs.map(blog=>
+          <div key={uuidv1()}>{blog.title} by {blog.author}</div>)}
+        
       </div>
     )
   }
@@ -42,7 +47,8 @@ const formUserInfo = (users) =>
 
 const mapStateToProps = (state, ownProps) => {
   return {
-      userinfos: formUserInfo(state.users)
+      userinfos: formUserInfo(state.users),
+      ownProps: ownProps
   }
 }
 
