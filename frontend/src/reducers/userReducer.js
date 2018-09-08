@@ -12,6 +12,7 @@ const reducer = (store = [], action) => {
   }
   if (action.type === 'INITIALIZE_USER') {
     //console.log('INITIALIZE users', action.data )
+    //console.log("here are users to be set:", action.data)
     store = action.data
     return store
   }
@@ -46,8 +47,10 @@ const actionFor = {
 //   },
   initializing() {
     return async (dispatch) => {
-      const users = await userService.getAll()
-      
+      let users = await userService.getAll()
+      //console.log("hera are dispateched users:", users)
+      //users = [...users,"ihme"]
+            
       dispatch({
         type: 'INITIALIZE_USER',
         data: users

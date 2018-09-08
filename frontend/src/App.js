@@ -1,7 +1,8 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, NavLink, Redirect  } from 'react-router-dom'
 import Blog from './components/Blog'
 import Users from './components/Users'
+import User from './components/User'
 import LoginForm from './components/LoginForm'
 import CreateBlogForm from './components/CreateBlogForm'
 import Notification from './components/Notification'
@@ -41,7 +42,9 @@ class App extends React.Component {
     
     // userService.getAll()
     // .then(resp => console.log(resp))
+    
     //console.log("@componentDidMount")
+    
     this.props.initblogs()
     const loggedUser = window.localStorage.getItem('loggeUser')
     if (loggedUser) {
@@ -205,6 +208,7 @@ class App extends React.Component {
               </div>
             }/>
             <Route exact path="/users" render={() => <Users />} />
+            <Route exact path="/user" render={() => <User />} />
             
           </div>
         </Router>

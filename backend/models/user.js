@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.formatUser = (user) => {
   return {
+    id: user._id,
     username: user.username,
     name: user.name,
     blogs: user.blogs,

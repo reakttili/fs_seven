@@ -2,6 +2,7 @@ import React from 'react'
 //import blogService from './../services/blogs'
 //import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Link, NavLink, Redirect  } from 'react-router-dom'
 //import { actionFor as usersActionFor } from './../reducers/userReducer'
 const uuidv1 = require('uuid/v1');
 
@@ -12,10 +13,18 @@ class Users extends React.Component {
   render() {
     return (
       // TODO: make a table!
+      //<Redirect to="/user" />
+      //<Route exact path="/notes/:id" render={({match}) =>
+      //<Note note={noteById(match.params.id)} />}
+      ///>
+
       <div>
         <h1>Users</h1>
         {this.props.userinfos.map(user => 
-          <div key={uuidv1()}>{user.name} {user.blogno}</div>
+          <div key={uuidv1()}>
+            <a href="">{user.name}</a>
+            {user.blogno}
+          </div>
         )}    
       </div>
     )
@@ -30,6 +39,7 @@ const mapDispatchToProps = {
 const formUserInfo = (users) =>
 {
   const m = users.map(user => {
+    console.log(user)
     return {
       name: user.username,
       blogno: user.blogs.length
