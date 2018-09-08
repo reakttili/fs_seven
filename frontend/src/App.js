@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
 import Blog from './components/Blog'
 import Users from './components/Users'
 import LoginForm from './components/LoginForm'
@@ -174,14 +175,12 @@ class App extends React.Component {
     //   renderBlogs = () => {<div>no blogs!</div>}
     // } 
     return (
+      
       <div>
         {this.state.updateToggle}
         <Notification />
         kirjautuneena: {this.state.name} 
         <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
-        <Users />
-        <h2>blogs Redux</h2>
-        {renderBlogs()}
         <Togglable buttonLabel="show create blog form">
           <CreateBlogForm 
             title={this.state.newTitle}
@@ -191,7 +190,21 @@ class App extends React.Component {
             submitHandler={this.handleCreateNewBlog}
           />        
         </Togglable>
+        <Router>
+          <div>
+            <Route exact path="/" render={() => 
+              <div>
+                <h2>blogs Redux</h2>
+                {renderBlogs()}
+              </div>
+            }/>
+            <Route exact path="/users" render={() => <Users />} />
+            
+          </div>
+        </Router>
+        
       </div>
+      
     );
   }
 }
