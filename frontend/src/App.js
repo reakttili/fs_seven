@@ -1,5 +1,6 @@
 import React from 'react'
 import Blog from './components/Blog'
+import Users from './components/Users'
 import LoginForm from './components/LoginForm'
 import CreateBlogForm from './components/CreateBlogForm'
 import Notification from './components/Notification'
@@ -11,6 +12,7 @@ import { actionFor as notificationActionFor } from './reducers/notificationReduc
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import { actionFor as usersActionFor } from './reducers/userReducer'
 import PropTypes from 'prop-types'
+
 //import userService from './services/users'
 
 class App extends React.Component {
@@ -143,6 +145,7 @@ class App extends React.Component {
     if (this.state.user === null) {
       return (
         <div>
+        
         <Notification />
          <Togglable buttonLabel="show">
           <LoginForm 
@@ -176,6 +179,7 @@ class App extends React.Component {
         <Notification />
         kirjautuneena: {this.state.name} 
         <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
+        <Users />
         <h2>blogs Redux</h2>
         {renderBlogs()}
         <Togglable buttonLabel="show create blog form">
