@@ -38,6 +38,7 @@ class App extends React.Component {
   }
   
   componentDidMount() {
+    
     // userService.getAll()
     // .then(resp => console.log(resp))
     //console.log("@componentDidMount")
@@ -45,12 +46,12 @@ class App extends React.Component {
     const loggedUser = window.localStorage.getItem('loggeUser')
     if (loggedUser) {
       const user = JSON.parse(loggedUser)
-      this.props.setLoggedUser(loggedUser)
+      console.log('user for setter:', user)
+      this.props.setLoggedUser(user)
       this.setState({
-        user,
         name: user.name
         })
-      blogService.setToken(loggedUser.token)
+      blogService.setToken(user.token)
     }
     
 
@@ -73,8 +74,8 @@ class App extends React.Component {
       this.setState({
         name:user.name,
         password:'',
-        user
       })
+      this.props.setLoggedUser(user)
       blogService.setToken(user.token)
       //console.log(user)
       window.localStorage.setItem('loggeUser', JSON.stringify(user))
@@ -125,8 +126,8 @@ class App extends React.Component {
       userName:'',
       name:'',
       password:'',
-      user: null
     })
+    this.props.setLoggedUser(null)
     window.localStorage.removeItem('loggeUser')
     
   }
@@ -146,7 +147,8 @@ class App extends React.Component {
   render() {
 
     //console.log('blogs to render', this.props.blogs)
-    console.log('users to render', this.props.users)
+    //console.log('users to render', this.props.users)
+    //console.log('render user', this.props.loggedUser)
     if (this.props.loggedUser === null) {
       return (
         <div>
@@ -183,7 +185,7 @@ class App extends React.Component {
       <div>
         {this.state.updateToggle}
         <Notification />
-        kirjautuneena: {this.state.name} 
+        kirjautuneenaa: {this.props.loggedUser.name} 
         <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
         <Togglable buttonLabel="show create blog form">
           <CreateBlogForm 
