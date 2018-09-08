@@ -49,7 +49,7 @@ class App extends React.Component {
     const loggedUser = window.localStorage.getItem('loggeUser')
     if (loggedUser) {
       const user = JSON.parse(loggedUser)
-      console.log('user for setter:', user)
+      //console.log('user for setter:', user)
       this.props.setLoggedUser(user)
       this.setState({
         name: user.name

@@ -1,7 +1,7 @@
 const reducer = (store = null, action) => {
   switch (action.type) {
   case 'SET_LOGGED_USER':
-    console.log("Logged user set:", action.user)
+    //console.log("Logged user set:", action.user)
     store = action.user
     return store
   default:
