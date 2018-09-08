@@ -45,13 +45,14 @@ class App extends React.Component {
     const loggedUser = window.localStorage.getItem('loggeUser')
     if (loggedUser) {
       const user = JSON.parse(loggedUser)
+      this.props.setLoggedUser(loggedUser)
       this.setState({
         user,
         name: user.name
         })
-      blogService.setToken(user.token)
+      blogService.setToken(loggedUser.token)
     }
-    this.props.setLoggedUser(loggedUser)
+    
 
     this.props.initUsers()
 
@@ -146,7 +147,7 @@ class App extends React.Component {
 
     //console.log('blogs to render', this.props.blogs)
     console.log('users to render', this.props.users)
-    if (this.state.user === null) {
+    if (this.props.loggedUser === null) {
       return (
         <div>
         
