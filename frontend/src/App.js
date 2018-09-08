@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import { actionFor as notificationActionFor } from './reducers/notificationReducer'
 import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import { actionFor as usersActionFor } from './reducers/userReducer'
+import { actionFor as loggedActionFor } from './reducers/loggedUserReducer'
 import PropTypes from 'prop-types'
 
 //import userService from './services/users'
@@ -50,6 +51,8 @@ class App extends React.Component {
         })
       blogService.setToken(user.token)
     }
+    this.props.setLoggedUser(loggedUser)
+
     this.props.initUsers()
 
     //console.log("users from store:", this.props.users)
@@ -232,14 +235,16 @@ const mapDispatchToProps = {
   notify: notificationActionFor.notify,
   initblogs: blogsActionFor.initializeBlogs,
   initUsers: usersActionFor.initializing,
-  createBlog: blogsActionFor.blogCreation
+  createBlog: blogsActionFor.blogCreation,
+  setLoggedUser: loggedActionFor.settingLoggedUser
 }
 
 const mapStateToProps = (state) => {
   return {
     notificationData: state.notification,
     blogs: sortBlogs(state.blogs),
-    users: state.users
+    users: state.users,
+    loggedUser: state.loggedUser
   }
 }
 
