@@ -45,7 +45,7 @@ const mapDispatchToProps = {
 const formUserInfo = (users) =>
 {
   const m = users.map(user => {
-    console.log(user)
+    //console.log(user)
     return {
       id: user.id,
       name: user.username,
