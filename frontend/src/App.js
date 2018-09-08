@@ -188,14 +188,20 @@ class App extends React.Component {
     //           />
     
     const userById = (id) => {
+      console.log("does this execute?")
+      console.log(id)
       //console.log('userbyid', id)
       //console.log('all users', this.props.users)
       const founduser = this.props.users.find(user => {
           const a = String(user.id)
           const b = String(id)
+
           return a === b
         }
       )
+      console.log("found user?")
+      console.log(this.props.users)
+      
       return founduser
     }
     

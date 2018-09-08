@@ -6,33 +6,31 @@ import { connect } from 'react-redux'
 const uuidv1 = require('uuid/v1');
 
 class User extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
   render() {
-    //console.log(this.props.ownProps)
+    let f = () => null
+    if (this.props.ownProps.user)
+    {
+     f = () =>
+      {
+        return (
+          <div>
+            <h1>{this.props.ownProps.user.name}</h1>
+            <h2>Added blogs</h2>
+            {this.props.ownProps.user.blogs.map(blog=>
+              <div key={uuidv1()}>{blog.title} by {blog.author}</div>)}
+          </div>
+        )
+      }
+    }
     return (
-      // TODO: make a table!
-    //   //<h1>User</h1>
-    //     {this.props.userinfos.map(user => 
-    //       <div key={uuidv1()}>{user.name} {user.blogno}</div>
-    //     )}    
-      <div>
-        <h1>{this.props.ownProps.user.name}</h1>
-        <h2>Added blogs</h2>
-        {this.props.ownProps.user.blogs.map(blog=>
-          <div key={uuidv1()}>{blog.title} by {blog.author}</div>)}
-        
-      </div>
+      f()
     )
   }
 }
 User.propTypes = {
 }
-
 const mapDispatchToProps = {
 }
-
 const formUserInfo = (users) =>
 {
   const m = users.map(user => {
@@ -44,14 +42,11 @@ const formUserInfo = (users) =>
   })
   return m
 }
-
 const mapStateToProps = (state, ownProps) => {
   return {
       userinfos: formUserInfo(state.users),
       ownProps: ownProps
   }
 }
-
-
 //export default Blog
 export default connect(mapStateToProps,mapDispatchToProps)(User)
