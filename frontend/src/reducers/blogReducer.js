@@ -4,8 +4,8 @@ const reducer = (store = [], action) => {
   //console.log('blogstore', store)
   if (action.type==='LIKE_BLOG') {
     const old = store.filter(a => a.id !==action.blog.id)
-    //console.log("old", old)
-    //console.log('the blog', action.blog)
+    console.log("old", old)
+    console.log('the blog', action.blog)
     return [...old, action.blog ]
   }
   if (action.type === 'DELETE_BLOG') {

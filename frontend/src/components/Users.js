@@ -18,13 +18,23 @@ class Users extends React.Component {
     this.props.history.push(`/users/${id}`)
   }
   render() {
+
+        //      <h1>Users</h1>
+        // {this.props.userinfos.map(user => 
+        //   <div key={uuidv1()}>
+        //     <div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div>
+        //     blogno: {user.blogno}
+        //     userid: {user.id}
+        //   </div>
+        // )}  
+
     return (
       // TODO: make a table!
       //<Redirect to="/user" />
       //<Route exact path="/notes/:id" render={({match}) =>
       //<Note note={noteById(match.params.id)} />}
       //<a href='aa' onClick={()=>this.handleOnClick(user.id)}>{user.name}</a>
-      ///>
+      ///><Table.Cell>{user.blogno}</Table.Cell>
      
 
       <div>
@@ -37,41 +47,17 @@ class Users extends React.Component {
             </Table.Row>
           </Table.Header>
         <Table.Body>
-          <Table.Row>
             {this.props.userinfos.map(user => 
-              <div key={uuidv1()}>
+              <Table.Row  key={user.id+Math.random().toString()} >
                 <Table.Cell><div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div></Table.Cell>
                 <Table.Cell>{user.blogno}</Table.Cell>
-              </div>
+              </Table.Row>
             )}    
-          </Table.Row>
-
-
-          <Table.Row>
-            <Table.Cell>
-              
-            </Table.Cell>
-            <Table.Cell>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-            </Table.Cell>
-            <Table.Cell>
-            </Table.Cell>
-          </Table.Row>
         </Table.Body>
       </Table > 
 
 
-        <h1>Users</h1>
-        {this.props.userinfos.map(user => 
-          <div key={uuidv1()}>
-            <div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div>
-            blogno: {user.blogno}
-            userid: {user.id}
-          </div>
-        )}    
+
       </div>
     )
   }
