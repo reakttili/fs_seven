@@ -57,7 +57,7 @@ class Blog extends React.Component {
     const addedby = (this.props.ownProps.blog.user) ? this.props.ownProps.blog.user.name : '';
     return(
       <div>
-        <div className="namediv" onClick={() => this.setState({bShowAll:false})}>
+        <div className="namediv" onClick={() => null}>
           { this.props.ownProps.blog.title} {this.props.ownProps.blog.author}
         </div>
         <div>
