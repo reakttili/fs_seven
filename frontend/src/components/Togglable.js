@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { actionFor as blogsActionFor } from './../reducers/blogReducer'
+import { Form, Button, Message, Menu, Grid, Image, Icon, Accordion } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
 class Togglable extends React.Component {
   constructor(props) {
@@ -20,11 +23,11 @@ class Togglable extends React.Component {
     return (
       <div>
         <div style={hideWhenVisible}>
-          <button onClick={this.toggleVisibility}>{this.props.buttonLabel}</button>
+          <Button onClick={this.toggleVisibility}>{this.props.buttonLabel}</Button>
         </div>
         <div style={showWhenVisible} className="togglableContent">
           {this.props.children}
-          <button onClick={this.toggleVisibility}>cancel</button>
+          <Button onClick={this.toggleVisibility}>cancel</Button>
         </div>
       </div>
     )

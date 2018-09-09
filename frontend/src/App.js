@@ -275,8 +275,8 @@ class App extends React.Component {
                   <h1>Blog App</h1>
                   <MenuC />
                   <Notification />
-                  kirjautuneena: {this.props.loggedUserR.name} 
-                  <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
+                  <div align="right" >Kirjautuneena: {this.props.loggedUserR.name} </div>
+                  <Button floated= {"right"} name='logoutbtn' size={"mini"} onClick={this.handleLogout}>logout</Button>
                   <Togglable buttonLabel="show create blog form">
                     <CreateBlogForm 
                       title={this.state.newTitle}
