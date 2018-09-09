@@ -25,10 +25,10 @@ import { Table } from 'semantic-ui-react'
 const MenuC = () => (
   <Menu inverted>
     <Menu.Item link>
-      <NavLink exact to="/blogs"  activeStyle={{fontWeight: 'bold', color: 'red'}}>blogs</NavLink> 
+      <NavLink exact to="/blogs"  activeStyle={{fontWeight: 'bold', color: 'red'}}>Blogs</NavLink> 
     </Menu.Item>
     <Menu.Item link>
-      <NavLink exact to="/users"  activeStyle={{fontWeight: 'bold', color: 'red' }}>users</NavLink>
+      <NavLink exact to="/users"  activeStyle={{fontWeight: 'bold', color: 'red' }}>Users</NavLink>
     </Menu.Item>
   </Menu>
 )

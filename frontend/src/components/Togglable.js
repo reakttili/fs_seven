@@ -23,11 +23,13 @@ class Togglable extends React.Component {
     return (
       <div>
         <div style={hideWhenVisible}>
+          <br></br>
           <Button onClick={this.toggleVisibility}>{this.props.buttonLabel}</Button>
         </div>
         <div style={showWhenVisible} className="togglableContent">
-          {this.props.children}
-          <Button onClick={this.toggleVisibility}>cancel</Button>
+           {this.props.children}
+           <br></br>
+          <Button onClick={this.toggleVisibility}>hide create blog form</Button>
         </div>
       </div>
     )
