@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Form, Button, Message, Menu, Grid, Image, Icon, Accordion } from 'semantic-ui-react'
 //import { actionFor as actionForNotification } from './../reducers/notificationReducer'
 import { connect } from 'react-redux'
 
 class Notification extends React.Component {
+  // <div style={styleInfo}>
+  //         {notification}
+  //       </div>
   render() {
     const styleInfo = {
       border: 'solid',
@@ -20,15 +24,14 @@ class Notification extends React.Component {
     const { notification, bShow, type } = this.props.notificationData
     if (bShow && type===0) {
       return (
-        <div style={styleInfo}>
-          {notification}
-        </div>
+
+        <Message success>{notification}</Message>
+        
       )
     } else if (bShow) {
       return (
-        <div style={styleError}>
-          {notification}
-        </div>
+        <Message error>{notification}</Message>
+        
       )
     }else {
       return ( <div></div>)

@@ -173,9 +173,10 @@ class App extends React.Component {
     if (this.props.loggedUserR === null) {
       return (
         <div>
-        
-        <Notification />
+        <br></br>
         <Container>
+        <Notification />
+        
          <Togglable buttonLabel="show login form" buttonLabel_hide="hide login form">
           <LoginForm 
             userName={this.state.userName}
