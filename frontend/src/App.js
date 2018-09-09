@@ -191,10 +191,36 @@ class App extends React.Component {
     {
       
       return (
-        this.props.blogs.map(blog => 
-            <Blog key={blog.id+Math.random().toString()} blog={blog}  history={history}  bShowAll={false} parentRender = {() => {}} />
-        )
+        <Table striped celled>
+          <Table.Body>
+            {this.props.blogs.map(blog => 
+              <Table.Row key={blog.id+Math.random().toString()} >
+                <Table.Cell>
+                  <Blog key={blog.id+Math.random().toString()} blog={blog}  history={history}  bShowAll={false} parentRender = {() => {}} />
+                </Table.Cell>
+               </Table.Row>
+            )}
+          </Table.Body>
+        </Table>
       )
+
+  //     <div>
+  //   <h2>Anecdotes</h2>
+  //   <Table striped celled>
+  //     <Table.Body>
+  //      {anecdotes.map(anecdote => 
+  //         <Table.Row key={anecdote.id} >
+  //           <Table.Cell>
+  //             <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+  //           </Table.Cell>
+  //         </Table.Row>
+  //       )}
+  //     </Table.Body>
+  //   </Table>
+  // </div>
+
+
+
     }
     // if (!this.props.blogs)
     // {
@@ -242,51 +268,50 @@ class App extends React.Component {
       
       <Container>
         {this.state.updateToggle}
-        
-        <Router>
-          <div>
-            <h1>Blog App</h1>
-            <MenuC />
-            <Notification />
-            kirjautuneena: {this.props.loggedUserR.name} 
-            <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
-            <Togglable buttonLabel="show create blog form">
-              <CreateBlogForm 
-                title={this.state.newTitle}
-                author={this.state.newAuhtor}
-                url={this.state.newUrl}
-                formChangeHandler={this.handleCreateNewBlogFormChange}
-                submitHandler={this.handleCreateNewBlog}
-              />        
-            </Togglable>
-
-            <Route exact path="/blogs/:id" render={({match}) => 
-              <Blog blog={blogById(match.params.id)} bShowAll={true}/>} />
-            
-            <Route exact path="/" render={({history}) => 
-              <div>
-                <h2>blogs Redux</h2>
-                {renderBlogs(history)}
-              </div>
-            }/>
-
-            <Route path="/blogs/" render={({history}) => 
-              <div>
-                <h2>blogs Redux</h2>
-                {renderBlogs(history)}
-              </div>
-            }/>
-
-            <Route exact path="/users" render={({history}) => <Users history={history} />} />
-            
-            <Route exact path="/users/:id" render={({match}) => 
-              <User user={userById(match.params.id)}/>} />
-            
-            
-            
-          </div>
-        </Router>
-        
+          <Router>
+            <Grid>
+             <Grid.Row>
+                <Grid.Column>
+                  <h1>Blog App</h1>
+                  <MenuC />
+                  <Notification />
+                  kirjautuneena: {this.props.loggedUserR.name} 
+                  <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
+                  <Togglable buttonLabel="show create blog form">
+                    <CreateBlogForm 
+                      title={this.state.newTitle}
+                      author={this.state.newAuhtor}
+                      url={this.state.newUrl}
+                      formChangeHandler={this.handleCreateNewBlogFormChange}
+                      submitHandler={this.handleCreateNewBlog}
+                    />        
+                  </Togglable>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Route exact path="/blogs/:id" render={({match}) => 
+                    <Blog blog={blogById(match.params.id)} bShowAll={true}/>} />
+                  
+                  <Route exact path="/" render={({history}) => 
+                    <div>
+                      <h2>All Blogs</h2>
+                      {renderBlogs(history)}
+                    </div>
+                  }/>
+                  <Route path="/blogs/" render={({history}) => 
+                    <div>
+                      <h2>All Blogs</h2>
+                      {renderBlogs(history)}
+                    </div>
+                  }/>
+                  <Route exact path="/users" render={({history}) => <Users history={history} />} />
+                  <Route exact path="/users/:id" render={({match}) => 
+                    <User user={userById(match.params.id)}/>} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Router>
       </Container>
       
     );

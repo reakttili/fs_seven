@@ -3,13 +3,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { actionFor as blogsActionFor } from './../reducers/blogReducer'
+import { Form, Button, Message, Menu, Grid, Image, Icon, Accordion } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
 const blogStyle = {
-  paddingTop: 10,
-  paddingLeft: 2,
-  border: 'solid',
-  borderWidth: 1,
-  marginBottom: 5
+  paddingTop: 0,
+  paddingLeft: 0,
+  border: '',
+  borderWidth: 0,
+  marginBottom: 20
 }
 
 class Blog extends React.Component {
@@ -54,25 +56,63 @@ class Blog extends React.Component {
   
   //<div className="namediv" onClick={() => this.setState({bShowAll:false})}>
   showAll = () => {
+
+  //   <Table striped celled>
+  //   <Table.Body>
+  //    {anecdotes.map(anecdote => 
+  //       <Table.Row key={anecdote.id} >
+  //         <Table.Cell>
+  //           <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+  //         </Table.Cell>
+  //       </Table.Row>
+  //     )}
+  //   </Table.Body>
+  // </Table>
+            // <div className="namediv" onClick={() => null}>
+            //   <h1>{ this.props.ownProps.blog.title} {this.props.ownProps.blog.author}</h1>
+            // </div>
+
+            // <div>
+            //     <a href={this.props.ownProps.blog.url}>{this.props.ownProps.blog.url}</a>
+            //   </div>
     const addedby = (this.props.ownProps.blog.user) ? this.props.ownProps.blog.user.name : '';
     return(
-      <div>
-        <div className="namediv" onClick={() => null}>
-          { this.props.ownProps.blog.title} {this.props.ownProps.blog.author}
-        </div>
-        <div>
-          <a href={this.props.ownProps.blog.url}>{this.props.ownProps.blog.url}</a>
-        </div>
-        <div>
-          {this.props.ownProps.blog.likes} likes
-          <button name='like' onClick={this.handleLikeClick}>like</button>
-        </div>
-        <div>
-          added by: {addedby}
-        </div>
+      <Table > 
+        <Table.Body>
+          
+          <Table.Row>
+            <Table.Cell>
+              <div className="namediv" onClick={() => null}>
+                <h1>{ this.props.ownProps.blog.title} {this.props.ownProps.blog.author}</h1>
+              </div>
+            </Table.Cell>
+          </Table.Row>
 
-        
-      </div>
+          <Table.Row>
+            <Table.Cell>
+              {this.props.ownProps.blog.likes} likes                        
+              <Button floated={"right"} name='like' onClick={this.handleLikeClick}>like</Button>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              <div>
+                <a href={this.props.ownProps.blog.url}>{this.props.ownProps.blog.url}</a>
+              </div>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              <div>
+                added by: {addedby}
+              </div>
+            </Table.Cell>
+          </Table.Row>
+
+        </Table.Body>
+      </Table>
     )
   }
   //this.setState({bShowAll:true})
@@ -99,17 +139,22 @@ class Blog extends React.Component {
       let loggeduser = window.localStorage.getItem('loggeUser')
       let blogadder = this.props.ownProps.blog.user
       //console.log('user', blogadder)
-      if (!blogadder) {
-        showDelete = () =>{
-          return <button name='delete' onClick={this.handleDeleteClick}>delete</button>
-        }
-      }
-      else { 
-        loggeduser = JSON.parse(loggeduser).username
-        blogadder = blogadder.username
-        if (loggeduser === String(blogadder)) {
+      if (!this.props.ownProps.bShowAll) {
+        if (!blogadder) {
+        
           showDelete = () =>{
-            return <button name='delete' onClick={this.handleDeleteClick}>delete</button>
+            //<Button animated>
+            return <Button name='delete' onClick={this.handleDeleteClick}>delete</Button>
+          }
+        
+        }
+        else { 
+          loggeduser = JSON.parse(loggeduser).username
+          blogadder = blogadder.username
+          if (loggeduser === String(blogadder)) {
+            showDelete = () =>{
+              return <Button name='delete' onClick={this.handleDeleteClick}>delete</Button>
+            }
           }
         }
       }
@@ -117,8 +162,14 @@ class Blog extends React.Component {
        
     return (
       <div className="maindiv" style={blogStyle}> 
-      {show()}
-      {showDelete()}
+      <Grid>
+        <Grid.Column width={13} >
+          {show()}
+        </Grid.Column>
+        <Grid.Column width={3}>
+          {showDelete()}
+        </Grid.Column>
+      </Grid>
       </div>
     )
   }
