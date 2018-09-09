@@ -175,7 +175,7 @@ class App extends React.Component {
         <div>
         
         <Notification />
-         <Togglable buttonLabel="show">
+         <Togglable buttonLabel="show login form" buttonLabel_hide="hide login form">
           <LoginForm 
             userName={this.state.userName}
             password={this.state.password}
@@ -277,7 +277,7 @@ class App extends React.Component {
                   <Notification />
                   <div align="right" >Kirjautuneena: {this.props.loggedUserR.name} </div>
                   <Button floated= {"right"} name='logoutbtn' size={"mini"} onClick={this.handleLogout}>logout</Button>
-                  <Togglable buttonLabel="show create blog form">
+                  <Togglable buttonLabel="show create blog form" buttonLabel_hide="hide create blog form" >
                     <CreateBlogForm 
                       title={this.state.newTitle}
                       author={this.state.newAuhtor}
