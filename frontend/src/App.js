@@ -169,12 +169,12 @@ class App extends React.Component {
       )
     }
 
-    let renderBlogs = () =>
+    let renderBlogs = (history) =>
     {
       
       return (
         this.props.blogs.map(blog => 
-            <Blog key={blog.id+Math.random().toString()} blog={blog}  parentRender = {() => {}} />
+            <Blog key={blog.id+Math.random().toString()} blog={blog}  history={history}  bShowAll={false} parentRender = {() => {}} />
         )
       )
     }
@@ -204,6 +204,21 @@ class App extends React.Component {
       
       return founduser
     }
+
+    const blogById = (id) => {
+      const foundblog = this.props.blogs.find(blog => {
+          const a = String(blog.id)
+          const b = String(id)
+          return a === b
+        }
+      )
+      return foundblog
+    }
+
+    // <Route exact path="/blogs/:id" render={({match}) => 
+    //           <User user={userById(match.params.id)}/>
+    //           <Blog key={match.params.id+Math.random().toString()} blog={blog}  parentRender = {() => {}}/>
+    //           }/>
     
     return (
       
@@ -223,15 +238,29 @@ class App extends React.Component {
         </Togglable>
         <Router>
           <div>
-            <Route exact path="/" render={() => 
+
+            <Route exact path="/blogs/:id" render={({match}) => 
+              <Blog blog={blogById(match.params.id)} bShowAll={true}/>} />
+            
+            <Route exact path="/" render={({history}) => 
               <div>
                 <h2>blogs Redux</h2>
-                {renderBlogs()}
+                {renderBlogs(history)}
               </div>
             }/>
+
+            <Route path="/blogs/" render={({history}) => 
+              <div>
+                <h2>blogs Redux</h2>
+                {renderBlogs(history)}
+              </div>
+            }/>
+
             <Route exact path="/users" render={({history}) => <Users history={history} />} />
-            <Route exact path="/user/:id" render={({match}) => 
+            
+            <Route exact path="/users/:id" render={({match}) => 
               <User user={userById(match.params.id)}/>} />
+            
             
             
           </div>
@@ -242,7 +271,7 @@ class App extends React.Component {
     );
   }
 }
-
+ //<Blog key={blog.id+Math.random().toString()} blog={blog}  history={history}  parentRender = {() => {}} />
 const sortBlogs = (blogs) => {
   const cmp = (a,b) => {
     if (a.likes < b.likes ) {

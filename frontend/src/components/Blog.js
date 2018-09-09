@@ -16,9 +16,8 @@ class Blog extends React.Component {
   
   constructor(props) {
     super(props)
-
     this.state = {
-      bShowAll: false,
+      bShowAll: this.props.ownProps.bShowAll,
     }
     this.parentRender = props.parentRender
     this.hideDelete = false
@@ -52,6 +51,8 @@ class Blog extends React.Component {
     }
   }
 
+  
+  //<div className="namediv" onClick={() => this.setState({bShowAll:false})}>
   showAll = () => {
     const addedby = (this.props.ownProps.blog.user) ? this.props.ownProps.blog.user.name : '';
     return(
@@ -74,10 +75,11 @@ class Blog extends React.Component {
       </div>
     )
   }
-
+  //this.setState({bShowAll:true})
+  //this.props.ownProps.history.push(`/users/${this.props.ownProps.blog.id}`
   showLimited = () => {
     return(
-      <div className="namediv" onClick={() => this.setState({bShowAll:true})}>
+      <div className="namediv" onClick={() => this.props.ownProps.history.push(`/blogs/${this.props.ownProps.blog.id}`)}>
         {this.props.ownProps.blog.title} {this.props.ownProps.blog.author} 
       </div>)
   }

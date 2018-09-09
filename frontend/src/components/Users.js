@@ -12,7 +12,7 @@ class Users extends React.Component {
   // }
   handleOnClick = (id) =>
   {
-    this.props.history.push(`/user/${id}`)
+    this.props.history.push(`/users/${id}`)
   }
   render() {
     return (
