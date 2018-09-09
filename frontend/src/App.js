@@ -15,8 +15,23 @@ import { actionFor as blogsActionFor } from './reducers/blogReducer'
 import { actionFor as usersActionFor } from './reducers/userReducer'
 import { actionFor as loggedActionFor } from './reducers/loggedUserReducer'
 import PropTypes from 'prop-types'
+import { Form, Button, Message, Menu, Grid, Image, Icon, Accordion } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
 //import userService from './services/users'
+
+
+const MenuC = () => (
+  <Menu inverted>
+    <Menu.Item link>
+      <NavLink exact to="/blogs"  activeStyle={{fontWeight: 'bold', color: 'red'}}>blogs</NavLink> 
+    </Menu.Item>
+    <Menu.Item link>
+      <NavLink exact to="/users"  activeStyle={{fontWeight: 'bold', color: 'red' }}>users</NavLink>
+    </Menu.Item>
+  </Menu>
+)
 
 class App extends React.Component {
   constructor(props) {
@@ -32,6 +47,9 @@ class App extends React.Component {
       updateToggle:false
     }
   }
+
+
+  
 
   toggleRender() {
     this.setState({updateToggle: this.state.updateToggle})
@@ -222,22 +240,25 @@ class App extends React.Component {
     
     return (
       
-      <div>
+      <Container>
         {this.state.updateToggle}
-        <Notification />
-        kirjautuneenaa: {this.props.loggedUserR.name} 
-        <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
-        <Togglable buttonLabel="show create blog form">
-          <CreateBlogForm 
-            title={this.state.newTitle}
-            author={this.state.newAuhtor}
-            url={this.state.newUrl}
-            formChangeHandler={this.handleCreateNewBlogFormChange}
-            submitHandler={this.handleCreateNewBlog}
-          />        
-        </Togglable>
+        
         <Router>
           <div>
+            <h1>Blog App</h1>
+            <MenuC />
+            <Notification />
+            kirjautuneena: {this.props.loggedUserR.name} 
+            <button name='logoutbtn' onClick={this.handleLogout}>logout</button>
+            <Togglable buttonLabel="show create blog form">
+              <CreateBlogForm 
+                title={this.state.newTitle}
+                author={this.state.newAuhtor}
+                url={this.state.newUrl}
+                formChangeHandler={this.handleCreateNewBlogFormChange}
+                submitHandler={this.handleCreateNewBlog}
+              />        
+            </Togglable>
 
             <Route exact path="/blogs/:id" render={({match}) => 
               <Blog blog={blogById(match.params.id)} bShowAll={true}/>} />
@@ -266,7 +287,7 @@ class App extends React.Component {
           </div>
         </Router>
         
-      </div>
+      </Container>
       
     );
   }
