@@ -1,10 +1,12 @@
 import React from 'react'
-//import blogService from './../services/blogs'
+import blogService from './../services/blogs'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { actionFor as blogsActionFor } from './../reducers/blogReducer'
+import { actionFor as notificationActionFor } from './../reducers/notificationReducer'
 import { Form, Button, Message, Menu, Grid, Image, Icon, Accordion } from 'semantic-ui-react'
 import { Table } from 'semantic-ui-react'
+const uuidv1 = require('uuid/v1');
 
 const blogStyle = {
   paddingTop: 0,
@@ -20,9 +22,12 @@ class Blog extends React.Component {
     super(props)
     this.state = {
       bShowAll: this.props.ownProps.bShowAll,
+      comments: this.props.ownProps.blog.comments
     }
     this.parentRender = props.parentRender
     this.hideDelete = false
+    
+
   }
 
   static propTypes = {
@@ -77,6 +82,7 @@ class Blog extends React.Component {
             //   </div>
     const addedby = (this.props.ownProps.blog.user) ? this.props.ownProps.blog.user.name : '';
     return(
+      <div>
       <Table > 
         <Table.Body>
           
@@ -110,11 +116,43 @@ class Blog extends React.Component {
               </div>
             </Table.Cell>
           </Table.Row>
-
         </Table.Body>
+        
       </Table>
+      <h1>Comments</h1>
+      {this.renderComments(this.props.ownProps.blog.comments)}
+      <input name = 'commentInput'  ref={input=>{this.myInput=input}} />
+      <button name='addCommentButton' ref={commentbtn=>{this.commentbtn=commentbtn}} onClick={this.handleAddComment.bind(this)}>add comment</button>
+      </div>
+      
+
     )
   }
+
+  handleAddComment = async () => {
+    // Todo: with redux!
+    console.log("handleAddcommmet")
+    console.log(this.myInput.value)
+    console.log(this.props.ownProps.blog.id)
+    const updated = this.props.ownProps.blog
+    updated.comments = [...updated.comments, this.myInput.value]
+    const ut = await blogService.addComment(updated)
+    this.setState({comments:ut.comments})
+    this.props.notify("Comment: "+this.myInput.value,3,0)
+
+  }
+
+
+  renderComments = (comments) =>
+  {
+    if (comments) {
+      return comments.map(comment=>{
+        return(<div key={uuidv1()}>{comment}</div>)
+      })
+
+    }
+  }
+
   //this.setState({bShowAll:true})
   //this.props.ownProps.history.push(`/users/${this.props.ownProps.blog.id}`
   showLimited = () => {
@@ -181,7 +219,8 @@ Blog.propTypes = {
 
 const mapDispatchToProps = {
   like: blogsActionFor.liking,
-  deleteBlog: blogsActionFor.deletion
+  deleteBlog: blogsActionFor.deletion,
+  notify: notificationActionFor.notify,
 }
 
 const mapStateToProps = (state, ownProps) => {

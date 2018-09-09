@@ -47,6 +47,13 @@ const updateLikes = async (title, author, url, user,likes, id) => {
   return response
 }
 
+const addComment = async (blog) => {
+  const puturl = `${baseUrl}/${blog.id}/comments`
+  const response = await axios.post(puturl, blog)
+  return response
+}
+
+
 const deleteBlog = async (id) => {
   
   const config = {
@@ -57,4 +64,4 @@ const deleteBlog = async (id) => {
   return response
 }
 
-export default { getAll, create, setToken, updateLikes, deleteBlog }
+export default { getAll, create, setToken, updateLikes, deleteBlog, addComment }

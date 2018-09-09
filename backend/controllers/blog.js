@@ -78,17 +78,19 @@ blogRouter.delete('/:id', async (request, response) => {
 //api/blogs/:id/comments tapahtuva HTTP POST -
 
 blogRouter.post('/:id/comments', async (request, response) => {
+  console.log('comment part')
   try {
     const b = await Blog.findById(request.params.id)
-    const new_comments = [...b.comments, request.body.newcomment]
     const updatedBlog = {
       title: request.body.title,
       author: request.body.author,
       url: request.body.url,
       likes: request.body.likes,
       user: request.body.user,
-      comments: new_comments
+      comments: request.body.comments
     }
+    console.log("updater", updatedBlog)
+    console.log("updater", request.body)
 
     const upBlog = await Blog
       .findByIdAndUpdate(request.params.id, updatedBlog, { new: true } )
