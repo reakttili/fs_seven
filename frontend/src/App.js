@@ -175,6 +175,7 @@ class App extends React.Component {
         <div>
         
         <Notification />
+        <Container>
          <Togglable buttonLabel="show login form" buttonLabel_hide="hide login form">
           <LoginForm 
             userName={this.state.userName}
@@ -183,6 +184,7 @@ class App extends React.Component {
             submitHandler={this.handleSubmit}
             />
           </Togglable>
+        </Container>
         </div>
       )
     }

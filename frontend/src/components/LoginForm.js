@@ -6,28 +6,30 @@ import { Table } from 'semantic-ui-react'
 
 const LoginForm = ({userName, password, loginFormChangeHandler, submitHandler}) => {
   return (
-    <div>
+      <div>
       <h2>Login to Blog App</h2>
-      <form onSubmit={submitHandler}>
-      <div>
-          username:
-          <input 
-          value = {userName}
-          onChange = {loginFormChangeHandler}
-          name = 'userName'
-          />
-      </div>
-      <div>
-          password:
-          <input 
-            value = {password}
+      <Form onSubmit={submitHandler}>
+        <Form.Field>
+            <label>username</label>
+            <input 
+            placeholder ="username"
+            value = {userName}
             onChange = {loginFormChangeHandler}
-            name = 'password'
-          />
+            name = 'userName'
+            />
+        </Form.Field>
+        <Form.Field>
+        <label> password:</label>
+              <input 
+                placeholder ="password"
+                value = {password}
+                onChange = {loginFormChangeHandler}
+                name = 'password'
+              />
+        </Form.Field>
+        <Button type='submit'>login</Button>
+      </Form>
       </div>
-      <button type='submit'>login</button>
-      </form>
-    </div>
   )
 }
 
@@ -41,20 +43,3 @@ LoginForm.propTypes = {
 export default LoginForm
 
 
-
-// <h1>Create New Blog</h1>
-<Form onSubmit={submitHandler}>
-<Form.Field>
-  <label>Title</label>
-  <input  placeholder="title" value = {title} onChange = {formChangeHandler} name = 'newTitle' />
-</Form.Field>
-<Form.Field>
-  <label>Author</label>
-  <input placeholder="author" value = {author} onChange = {formChangeHandler} name = 'newAuhtor' />
-</Form.Field>
-<Form.Field>
-  <label>Url</label>
-  <input placeholder="url"  value = {url} onChange = {formChangeHandler} name = 'newUrl' />
-</Form.Field>
-<Button type='submit'>Create</Button>
-</Form> 
