@@ -75,6 +75,30 @@ blogRouter.delete('/:id', async (request, response) => {
   }
 })
 
+//api/blogs/:id/comments tapahtuva HTTP POST -
+
+blogRouter.post('/:id/comments', async (request, response) => {
+  try {
+    const b = await Blog.findById(request.params.id)
+    const new_comments = [...b.comments, request.body.newcomment]
+    const updatedBlog = {
+      title: request.body.title,
+      author: request.body.author,
+      url: request.body.url,
+      likes: request.body.likes,
+      user: request.body.user,
+      comments: new_comments
+    }
+
+    const upBlog = await Blog
+      .findByIdAndUpdate(request.params.id, updatedBlog, { new: true } )
+      .populate('user', { name: 1, username: 1 })
+    response.json(Blog.formatBlog(upBlog))
+  } catch (exception) {
+    console.log(exception)
+  }
+})
+
 blogRouter.post('/', async (request, response) => {
   try {
     // Model way was:
