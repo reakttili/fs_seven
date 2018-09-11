@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react'
 //import blogService from './../services/blogs'
 //import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 //import { BrowserRouter as Router, Route, Link, NavLink, Redirect  } from 'react-router-dom'
 //import { actionFor as usersActionFor } from './../reducers/userReducer'
 
@@ -58,6 +59,7 @@ class Users extends React.Component {
   }
 }
 Users.propTypes = {
+  userinfos: PropTypes.object.isRequired
 }
 
 const mapDispatchToProps = {

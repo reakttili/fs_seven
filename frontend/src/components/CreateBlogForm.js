@@ -13,21 +13,21 @@ const CreateBlogForm = ({title, author, url, formChangeHandler, submitHandler}) 
     <div>
       <h1>Create New Blog</h1>
       <Form onSubmit={submitHandler}>
-      <Form.Field>
-        <label>Title</label>
-        <input  placeholder="title" value = {title} onChange = {formChangeHandler} name = 'newTitle' />
-      </Form.Field>
-      <Form.Field>
-        <label>Author</label>
-        <input placeholder="author" value = {author} onChange = {formChangeHandler} name = 'newAuhtor' />
-      </Form.Field>
-      <Form.Field>
-        <label>Url</label>
-        <input placeholder="url"  value = {url} onChange = {formChangeHandler} name = 'newUrl' />
-      </Form.Field>
-      <Button type='submit'>Create</Button>
-    </Form>
-  </div>
+        <Form.Field>
+          <label>Title</label>
+          <input  placeholder="title" value = {title} onChange = {formChangeHandler} name = 'newTitle' />
+        </Form.Field>
+        <Form.Field>
+          <label>Author</label>
+          <input placeholder="author" value = {author} onChange = {formChangeHandler} name = 'newAuhtor' />
+        </Form.Field>
+        <Form.Field>
+          <label>Url</label>
+          <input placeholder="url"  value = {url} onChange = {formChangeHandler} name = 'newUrl' />
+        </Form.Field>
+        <Button type='submit'>Create</Button>
+      </Form>
+    </div>
 
     // <div>
     //   <h2>Create New</h2>

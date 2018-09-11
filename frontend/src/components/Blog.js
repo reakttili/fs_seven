@@ -202,13 +202,19 @@ class Blog extends React.Component {
 }
 
 Blog.propTypes = {
-  like: PropTypes.func.isRequired
+  like: PropTypes.func.isRequired,
+  deleteBlog:PropTypes.func.isRequired,
+  notify:PropTypes.func.isRequired,
+  ownProps:PropTypes.object.isRequired,
+  missingProp: PropTypes.object.isRequired
 }
+
 
 const mapDispatchToProps = {
   like: blogsActionFor.liking,
   deleteBlog: blogsActionFor.deletion,
   notify: notificationActionFor.notify,
+    
 }
 
 const mapStateToProps = (state, ownProps) => {

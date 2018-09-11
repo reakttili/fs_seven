@@ -6,30 +6,30 @@ import { Table } from 'semantic-ui-react'
 
 const LoginForm = ({userName, password, loginFormChangeHandler, submitHandler}) => {
   return (
-      <div>
+    <div>
       <h2>Login to Blog App</h2>
       <Form onSubmit={submitHandler}>
         <Form.Field>
-            <label>username</label>
-            <input 
+          <label>username</label>
+          <input
             placeholder ="username"
             value = {userName}
             onChange = {loginFormChangeHandler}
             name = 'userName'
-            />
+          />
         </Form.Field>
         <Form.Field>
-        <label> password:</label>
-              <input 
-                placeholder ="password"
-                value = {password}
-                onChange = {loginFormChangeHandler}
-                name = 'password'
-              />
+          <label> password:</label>
+          <input
+            placeholder ="password"
+            value = {password}
+            onChange = {loginFormChangeHandler}
+            name = 'password'
+          />
         </Form.Field>
         <Button type='submit'>login</Button>
       </Form>
-      </div>
+    </div>
   )
 }
 
