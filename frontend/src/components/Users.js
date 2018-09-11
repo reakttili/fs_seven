@@ -3,11 +3,8 @@ import { Table } from 'semantic-ui-react'
 //import blogService from './../services/blogs'
 //import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link, NavLink, Redirect  } from 'react-router-dom'
+//import { BrowserRouter as Router, Route, Link, NavLink, Redirect  } from 'react-router-dom'
 //import { actionFor as usersActionFor } from './../reducers/userReducer'
-const uuidv1 = require('uuid/v1');
-
-
 
 class Users extends React.Component {
   // constructor(props) {
@@ -19,14 +16,14 @@ class Users extends React.Component {
   }
   render() {
 
-        //      <h1>Users</h1>
-        // {this.props.userinfos.map(user => 
-        //   <div key={uuidv1()}>
-        //     <div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div>
-        //     blogno: {user.blogno}
-        //     userid: {user.id}
-        //   </div>
-        // )}  
+  //      <h1>Users</h1>
+  // {this.props.userinfos.map(user =>
+  //   <div key={uuidv1()}>
+  //     <div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div>
+  //     blogno: {user.blogno}
+  //     userid: {user.id}
+  //   </div>
+  // )}
 
     return (
       // TODO: make a table!
@@ -35,26 +32,24 @@ class Users extends React.Component {
       //<Note note={noteById(match.params.id)} />}
       //<a href='aa' onClick={()=>this.handleOnClick(user.id)}>{user.name}</a>
       ///><Table.Cell>{user.blogno}</Table.Cell>
-     
-
       <div>
         <h1>Users</h1>
-        <Table > 
+        <Table>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell></Table.HeaderCell>
               <Table.HeaderCell>Blog Count</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-        <Table.Body>
-            {this.props.userinfos.map(user => 
+          <Table.Body>
+            {this.props.userinfos.map(user =>
               <Table.Row  key={user.id+Math.random().toString()} >
-                <Table.Cell><div onClick={()=>this.handleOnClick(user.id)}>{user.name}</div></Table.Cell>
+                <Table.Cell><div onClick={() => this.handleOnClick(user.id)}>{user.name}</div></Table.Cell>
                 <Table.Cell>{user.blogno}</Table.Cell>
               </Table.Row>
-            )}    
-        </Table.Body>
-      </Table > 
+            )}
+          </Table.Body>
+        </Table >
 
 
 
@@ -77,14 +72,13 @@ const formUserInfo = (users) =>
       name: user.username,
       blogno: user.blogs.length
     }
-      
   })
   return m
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-      userinfos: formUserInfo(state.users)
+    userinfos: formUserInfo(state.users)
   }
 }
 

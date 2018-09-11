@@ -11,7 +11,8 @@ const reducer = (store = null, action) => {
 
 const actionFor = {
   settingLoggedUser(user) {
-    return async (dispatch, getState) => {
+    //return async (dispatch, getState) => {
+    return async (dispatch) => {
       dispatch({
         type: 'SET_LOGGED_USER',
         user: user
